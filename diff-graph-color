@@ -1,0 +1,3 @@
+#!/bin/sh
+
+graph-easy --as boxart | GREP_COLOR='01;31' grep --color=always "\-\S*\|$" | GREP_COLOR='01;32' grep --color=always "\+\S*\|$"

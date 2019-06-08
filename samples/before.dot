@@ -1,0 +1,4 @@
+graph G {
+Teacher -- Principal  [label=""];
+Person -- Teacher  [label=""];
+}
