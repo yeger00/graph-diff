@@ -1,0 +1,43 @@
+#!/usr/bin/env python
+
+import pydot
+import git
+import graphdiff
+import sys
+
+
+def get_diff_for_file(repo, path):
+    hcommit = repo.head.commit
+    for diff in hcommit.diff(None):
+        if diff.a_path == path or diff.b_path == path:
+            return diff
+    return None
+
+
+def print_graph(graph):
+    pydot_graph = graphdiff.to_dot(graph)
+    print(pydot_graph.to_string())
+
+
+def load_graph_from_blob(blob):
+    blob_bytes = blob.data_stream.read()
+    # TODO: handle more than one graph
+    blob_dot_graph = pydot.graph_from_dot_data(blob_bytes.decode("utf-8"))[0]
+    return graphdiff.from_dot(blob_dot_graph)
+
+def main(path):
+    # Create the repository, raises an error if it isn't one.
+    repo = git.Repo("./")
+
+    diff = get_diff_for_file(repo, path)
+    if diff:
+        a_graph = graphdiff.Graph()
+        if diff.a_blob:
+            a_graph = load_graph_from_blob(diff.a_blob)
+        b_graph = graphdiff.from_dot(pydot.graph_from_dot_file(path)[0])
+        print_graph(graphdiff.generate_diff_graph(a_graph, b_graph))
+
+
+if __name__ == "__main__":
+    main(sys.argv[1])
+
