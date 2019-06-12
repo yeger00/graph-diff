@@ -11,4 +11,4 @@ install:
 script:
   - pytest
 script:
-  - pylint graphdiff/graphdiff.py
+  - pylint --rcfile=.pylintrc graphdiff/graphdiff.py
