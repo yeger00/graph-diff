@@ -113,6 +113,8 @@ def from_dot(pydot_graph):
 
     for edge in pydot_graph.get_edges():
         graph.edges.add(Edge(edge.get_source(), edge.get_destination()))
+        graph.nodes.add(edge.get_source())
+        graph.nodes.add(edge.get_destination())
     return graph
 
 

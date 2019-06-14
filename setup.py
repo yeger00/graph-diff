@@ -22,7 +22,7 @@ class PyTest(TestCommand):
 
 setup(
     name="graphdiff",
-    version="0.0.0",
+    version="0.0.1",
     author="Avi Yeger",
     author_email="yeger00@gmail.com",
     description="",
@@ -30,6 +30,7 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/yeger00/",
     packages=find_packages(),
+    install_requires=["pydot"],
     tests_require=["pytest", "pytest_mock"],
     cmdclass={"test": PyTest},
 )
