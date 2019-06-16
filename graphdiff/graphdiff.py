@@ -95,9 +95,9 @@ def generate_diff_graph(first_graph, second_graph):
         graph.nodes.add(node)
 
     for removed_edge in removed_edges:
-        graph.edges.add(Edge(removed_edge.src, removed_edge.dest, "-del"))
+        graph.edges.add(Edge(removed_edge.src, removed_edge.dest, "-" + removed_edge.label))
     for added_edge in added_edges:
-        graph.edges.add(Edge(added_edge.src, added_edge.dest, "+add"))
+        graph.edges.add(Edge(added_edge.src, added_edge.dest, "+" + added_edge.label))
     for edge in edges:
         graph.edges.add(edge)
 
@@ -112,7 +112,7 @@ def from_dot(pydot_graph):
         graph.nodes.add(node.get_name())
 
     for edge in pydot_graph.get_edges():
-        graph.edges.add(Edge(edge.get_source(), edge.get_destination()))
+        graph.edges.add(Edge(edge.get_source(), edge.get_destination(), edge.get_label()))
         graph.nodes.add(edge.get_source())
         graph.nodes.add(edge.get_destination())
     return graph
