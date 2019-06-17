@@ -104,17 +104,36 @@ def generate_diff_graph(first_graph, second_graph):
     return graph
 
 
+def remove_quotes(pydot_graph):
+    """ For some reason, some pydot graph data is with quotes ('"name"', '"label"').
+    This function removes it."""
+
+    for node in pydot_graph.get_nodes():
+        node.set_label(node.get_label().replace('"', ''))
+
+    for edge in pydot_graph.get_edges():
+        edge.set_label(edge.get_label().replace('"', ''))
+
 def from_dot(pydot_graph):
     """Generated a graph from pydot graph."""
+    remove_quotes(pydot_graph)
     graph = Graph()
 
     for node in pydot_graph.get_nodes():
-        graph.nodes.add(node.get_name())
+        graph.nodes.add(node.get_label())
 
     for edge in pydot_graph.get_edges():
-        graph.edges.add(Edge(edge.get_source(), edge.get_destination(), edge.get_label()))
-        graph.nodes.add(edge.get_source())
-        graph.nodes.add(edge.get_destination())
+        source_label = edge.get_source()
+        source_nodes = pydot_graph.get_node(source_label)
+        if source_nodes:
+            source_label = source_nodes[0].get_label()
+        dest_label = edge.get_destination()
+        dest_nodes = pydot_graph.get_node(dest_label)
+        if dest_nodes:
+            dest_label = dest_nodes[0].get_label()
+        graph.edges.add(Edge(source_label, dest_label, edge.get_label()))
+        graph.nodes.add(source_label)
+        graph.nodes.add(dest_label)
     return graph
 
 
