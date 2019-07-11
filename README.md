@@ -21,6 +21,8 @@ cat ./diff.dot | ./diff-graph-color
 ```
 
 # git-diff
+![Alt text](images/git-log-example.gif?raw=true "Title")
+
 ```
 git config diff.graph_diff.command /path/to/git-graph-diff-tool
 *.dot diff=graph_diff
