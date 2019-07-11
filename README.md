@@ -16,9 +16,13 @@ pip install -e .
 ```
 cat samples/before.dot | graph-easy --as boxart
 cat samples/after.dot | graph-easy --as boxart
-python -m graphdiff samples/before.dot samples/after.dot ./diff.dot
+python -m graphdiff samples/before.dot samples/after.dot > ./diff.dot
 cat ./diff.dot | ./diff-graph-color
 ```
 
 # git-diff
-TODO
+```
+git config diff.graph_diff.command /path/to/git-graph-diff-tool
+*.dot diff=graph_diff
+git log -p --ext-diff classes.dot
+```

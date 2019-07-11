@@ -8,8 +8,14 @@ def load_graph(path):
     '''
     Loads a graph from .dot file into a Graph() object.
     '''
-    pydot_graph = pydot.graph_from_dot_file(path)[0]
-    return graphdiff.from_dot(pydot_graph) 
+    with open(path) as f:
+        data = f.read()
+    graph = graphdiff.Graph()
+    if data:
+        # TODO: handle multiple graphs
+        pydot_graph = pydot.graph_from_dot_data(data)[0]
+        graph = graphdiff.from_dot(pydot_graph) 
+    return graph
 
 
 def save_graph(graph, path):
@@ -26,8 +32,8 @@ def main():
     before_graph = load_graph(sys.argv[1])
     after_graph = load_graph(sys.argv[2])
     diff = graphdiff.generate_diff_graph(before_graph, after_graph)
-    save_graph(diff, sys.argv[3])
-    # print_graph(diff)
+    # save_graph(diff, sys.argv[3])
+    print_graph(diff)
 
 
 if __name__ == "__main__":

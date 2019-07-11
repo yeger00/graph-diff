@@ -112,7 +112,8 @@ def remove_quotes(pydot_graph):
         node.set_label(node.get_label().replace('"', ''))
 
     for edge in pydot_graph.get_edges():
-        edge.set_label(edge.get_label().replace('"', ''))
+        if edge.get_label():
+            edge.set_label(edge.get_label().replace('"', ''))
 
 def from_dot(pydot_graph):
     """Generated a graph from pydot graph."""
