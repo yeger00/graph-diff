@@ -1,0 +1,62 @@
+#!/usr/bin/env sh
+
+# Git graph-diff tool.
+# GIT_EXTERNAL_DIFF command line arguments are available <here>
+
+set -eu
+
+readonly SCRIPT_DIR=$(dirname $(readlink -f $0))
+readonly SCRIPT=$(basename $(readlink -f $0))
+
+perror()
+{
+    echo "${SCRIPT}: ERROR: ${@}" >&2
+    exit 1
+}
+
+help()
+{
+(
+    cat <<EOF
+    Git graph-diff tool.
+    See GIT_EXTERNAL_DIFF documentation for explanation of the arguments.
+
+    ./${SCRIPT} [-h] [-x] PATH OLD-FILE OLD-HEX OLD-MODE NEW-FILE NEW-HEX NEW-MODE
+    | * -h - print this help.
+    | * -x - set bash's -x flag.
+EOF
+) | sed -r 's/^\s*\|?//'
+}
+
+while getopts ":hx" option
+do
+    case "${option}" in
+        h)  help
+            exit 0
+            ;;
+
+        x)  set -x
+            ;;
+
+        \?) perror "unknown option -${OPTARG}"
+            ;;
+    esac
+done
+shift $((OPTIND-1))
+
+# validate number of arguments left
+if [ "${#}" -ne 7 ]
+then
+    perror "Invalid number of arguments (use -h for help)."
+fi
+
+path="${1}"
+old_file="${2}"
+old_hex="${3}"
+old_mode="${4}"
+new_file="${5}"
+new_hex="${6}"
+new_mode="${7}"
+
+python -m graphdiff "${old_file}" "${new_file}" | ${SCRIPT_DIR}/diff-graph-color
+
