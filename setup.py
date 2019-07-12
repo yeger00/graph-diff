@@ -22,7 +22,7 @@ class PyTest(TestCommand):
 
 setup(
     name="graphdiff",
-    version="0.0.2",
+    version="0.0.4",
     author="Avi Yeger",
     author_email="yeger00@gmail.com",
     description="",
