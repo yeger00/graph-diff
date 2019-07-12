@@ -9,9 +9,16 @@ Debian / Ubuntu:
 sudo apt-get install libgraph-easy-perl
 ```
 ## Install
+
+### From source
 ```
 git clone https://github.com/yeger00/graph-diff
 pip install -e .
+```
+
+### From PyPI
+```
+pip install graphdiff
 ```
 
 ## Generate and view diff
