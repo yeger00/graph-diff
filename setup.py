@@ -22,7 +22,7 @@ class PyTest(TestCommand):
 
 setup(
     name="graphdiff",
-    version="0.0.4",
+    version="0.0.5",
     author="Avi Yeger",
     author_email="yeger00@gmail.com",
     description="",
@@ -33,4 +33,5 @@ setup(
     install_requires=["pydot"],
     tests_require=["pytest", "pytest_mock"],
     cmdclass={"test": PyTest},
+    scripts=["bin/graph-diff", "bin/graph-diff-color", "bin/git-graph-diff-tool"]
 )
