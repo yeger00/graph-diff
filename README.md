@@ -25,8 +25,8 @@ pip install graphdiff
 ```
 cat samples/before.dot | graph-easy --as boxart
 cat samples/after.dot | graph-easy --as boxart
-python -m graphdiff samples/before.dot samples/after.dot > ./diff.dot
-cat ./diff.dot | ./diff-graph-color
+graph-diff samples/before.dot samples/after.dot > ./diff.dot
+cat ./diff.dot | graph-diff-color
 ```
 
 # git-graph-diff-tool
@@ -40,7 +40,7 @@ echo "*.dot diff=graph_diff" >> .gitattributes
 ```
 Then, configure the difftool to be the `git-graph-diff-tool`. For example:
 ```
-git config diff.graph_diff.command /path/to/git-graph-diff-tool
+git config diff.graph_diff.command git-graph-diff-tool
 ```
 Then, you can use git as usual, while adding `--ext-diff` flag to enable external difftools.
 ```

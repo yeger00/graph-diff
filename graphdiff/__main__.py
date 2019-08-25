@@ -32,7 +32,6 @@ def main():
     before_graph = load_graph(sys.argv[1])
     after_graph = load_graph(sys.argv[2])
     diff = graphdiff.generate_diff_graph(before_graph, after_graph)
-    # save_graph(diff, sys.argv[3])
     print_graph(diff)
 
 
