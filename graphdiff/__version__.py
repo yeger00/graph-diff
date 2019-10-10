@@ -1,0 +1,7 @@
+__version__ = '0.0.6'
+__title__ = 'graphdiff'
+__description__ = ''
+__url__ = 'https://github.com/yeger00/'
+__author__ = 'Avi Yeger'
+__author_email__ = 'yeger00@gmail.com'
+__license__ = 'MIT'

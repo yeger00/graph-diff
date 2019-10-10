@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 import sys
 import pydot
-import graphdiff
-
+import argparse
+from . import graphdiff
+from . import __version__ as version
 
 def load_graph(path):
     '''
@@ -29,8 +30,14 @@ def print_graph(graph):
 
 
 def main():
-    before_graph = load_graph(sys.argv[1])
-    after_graph = load_graph(sys.argv[2])
+    parser = argparse.ArgumentParser(description='graph-diff')
+    parser.add_argument('--version', action='version', version=version.__version__)
+    parser.add_argument('before', action='store')
+    parser.add_argument('after', action='store')
+    args = parser.parse_args()
+
+    before_graph = load_graph(args.before)
+    after_graph = load_graph(args.after)
     diff = graphdiff.generate_diff_graph(before_graph, after_graph)
     print_graph(diff)
 
