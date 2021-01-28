@@ -8,6 +8,15 @@ Debian / Ubuntu:
 ```
 sudo apt-get install libgraph-easy-perl
 ```
+
+macOS
+
+```
+brew install docker
+# start docker
+brew install whalebrew
+whalebrew install tsub/graph-easy
+```
 ## Install
 
 ### From source
